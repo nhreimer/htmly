@@ -554,7 +554,11 @@ function delete_post($file, $destination)
     $arr = explode('_', $file);
     $replaced = substr($arr[0], 0, strrpos($arr[0], '/')) . '/';
     $dt = str_replace($replaced, '', $arr[0]);
-    clear_post_cache($dt, $arr[1], str_replace('.md', '', $arr[2]), $file, $arr[count($str) - 3]);
+    /* [nhr] 12/30/2015
+     * $str doesn't exist and category isn't listed in the $arr.
+     * added empty string to prevent warnings
+     */
+    clear_post_cache($dt, $arr[1], str_replace('.md', '', $arr[2]), $file, "");
 
     if (!empty($deleted_content)) {
         unlink($deleted_content);
